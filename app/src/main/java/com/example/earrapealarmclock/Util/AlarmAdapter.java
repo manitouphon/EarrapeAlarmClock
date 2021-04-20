@@ -1,4 +1,4 @@
-package Util;
+package com.example.earrapealarmclock.Util;
 
 import android.graphics.Typeface;
 import android.view.LayoutInflater;

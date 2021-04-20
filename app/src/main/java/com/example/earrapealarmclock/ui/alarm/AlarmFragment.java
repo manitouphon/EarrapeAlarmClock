@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.earrapealarmclock.R;
 
-import Util.AlarmAdapter;
-import Util.AlarmData;
+import com.example.earrapealarmclock.Util.AlarmAdapter;
+import com.example.earrapealarmclock.Util.AlarmData;
 
 public class AlarmFragment extends Fragment {
 
