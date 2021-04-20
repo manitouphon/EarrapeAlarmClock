@@ -1,3 +1,3 @@
 # EarrapeAlarmClock
 
-###Just clone and open with Android Studio. 
+### Just clone and open with Android Studio. 
