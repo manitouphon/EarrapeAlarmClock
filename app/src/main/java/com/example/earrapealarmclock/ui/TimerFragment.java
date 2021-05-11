@@ -1,4 +1,4 @@
-package com.example.earrapealarmclock.ui.settings;
+package com.example.earrapealarmclock.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.earrapealarmclock.R;
 
-public class SettingsFragment extends Fragment {
+public class TimerFragment extends Fragment {
 
-    private SettingsViewModel settingsViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_timer, container, false);
 
         return root;
     }

@@ -1,6 +1,7 @@
 package com.example.earrapealarmclock.Util;
 
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,25 +17,43 @@ import com.example.earrapealarmclock.R;
 
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
-
+    private RecyclerView mainRecyclerView;
     private AlarmData[] alarmData;
+    //OnClickHandler
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //Get Clicked ItemPosition (Starts from 0)
+            int itemPosition = mainRecyclerView.getChildLayoutPosition(v);
+        }
+    };
 
-    public AlarmAdapter(AlarmData[] alarmData) {
+
+
+    //Constructor
+    public AlarmAdapter(AlarmData[] alarmData, RecyclerView recyclerView) {
+        this.mainRecyclerView = recyclerView;
         this.alarmData = alarmData;
     }
 
+
+
+    //OnCreate
     @NonNull
     @Override
     public AlarmItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.alarm_item_view_holder, parent, false);
-
+        view.setOnClickListener(onClickListener);
         AlarmItemViewHolder alarmItemViewHolder = new AlarmItemViewHolder(view);
 
 
         return alarmItemViewHolder;
     }
 
+
+
+    //OnBinding
     @Override
     public void onBindViewHolder(@NonNull AlarmItemViewHolder holder, int position) {
 
@@ -121,6 +140,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
 
 
     }
+
+
 
 
     @Override

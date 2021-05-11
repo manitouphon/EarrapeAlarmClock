@@ -1,4 +1,4 @@
-package com.example.earrapealarmclock.ui.alarm;
+package com.example.earrapealarmclock.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,14 +18,12 @@ import com.example.earrapealarmclock.Util.AlarmData;
 
 public class AlarmFragment extends Fragment {
 
-    private AlarmViewModel alarmViewModel;
     private AlarmData[] alarmData = new AlarmData[10];
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        alarmViewModel =
-                new ViewModelProvider(this).get(AlarmViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_alarm, container, false);
 
 
@@ -62,7 +60,7 @@ public class AlarmFragment extends Fragment {
         alarmData[1].setActive(true);
 
 
-        AlarmAdapter alarmAdapter = new AlarmAdapter(alarmData);
+        AlarmAdapter alarmAdapter = new AlarmAdapter(alarmData, recyclerView);
         recyclerView.setAdapter(alarmAdapter);
 
 
