@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.AlarmFragment">
+    tools:context=".ui.AlarmFragment"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@
         android:onClick="addAlarm"
         android:src="@drawable/ic_add_alarm"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:backgroundTint="@color/orange_1"
+        app:backgroundTint="@color/orange_2"
 
 
 

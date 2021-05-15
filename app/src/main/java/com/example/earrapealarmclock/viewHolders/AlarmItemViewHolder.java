@@ -1,4 +1,4 @@
-package com.example.earrapealarmclock;
+package com.example.earrapealarmclock.viewHolders;
 
 import android.view.View;
 import android.widget.ImageButton;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.earrapealarmclock.R;
 
 public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -17,13 +19,13 @@ public class AlarmItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         alarmLabel = itemView.findViewById(R.id.alarmLabel);
         alarmTime = itemView.findViewById(R.id.alarmTime);
-        mon = itemView.findViewById(R.id.mon);
-        tue = itemView.findViewById(R.id.tue);
-        wed = itemView.findViewById(R.id.wed);
-        thu = itemView.findViewById(R.id.thu);
-        fri = itemView.findViewById(R.id.fri);
-        sat = itemView.findViewById(R.id.sat);
-        sun = itemView.findViewById(R.id.sun);
+        mon = itemView.findViewById(R.id.alarm_item_mon);
+        tue = itemView.findViewById(R.id.alarm_item_tue);
+        wed = itemView.findViewById(R.id.alarm_item_wed);
+        thu = itemView.findViewById(R.id.alarm_item_thu);
+        fri = itemView.findViewById(R.id.alarm_item_fri);
+        sat = itemView.findViewById(R.id.alarm_item_sat);
+        sun = itemView.findViewById(R.id.alarm_item_sun);
 
         alarmSwitchImgButton = itemView.findViewById(R.id.alarmSwitchingImageButton);
 

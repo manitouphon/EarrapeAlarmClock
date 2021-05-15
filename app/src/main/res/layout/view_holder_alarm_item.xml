@@ -47,74 +47,74 @@
         app:layout_constraintVertical_bias="0.864">
 
         <TextView
-            android:id="@+id/mon"
+            android:id="@+id/alarm_item_sun"
+            android:layout_width="19dp"
+            android:layout_height="20dp"
+            android:layout_margin="1dp"
+            android:gravity="center_horizontal"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="@color/orange_1" />
+
+        <TextView
+            android:id="@+id/alarm_item_mon"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="M"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
         <TextView
-            android:id="@+id/tue"
+            android:id="@+id/alarm_item_tue"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="T"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
         <TextView
-            android:id="@+id/wed"
+            android:id="@+id/alarm_item_wed"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="W"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
         <TextView
-            android:id="@+id/thu"
+            android:id="@+id/alarm_item_thu"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="T"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
         <TextView
-            android:id="@+id/fri"
+            android:id="@+id/alarm_item_fri"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="F"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
         <TextView
-            android:id="@+id/sat"
+            android:id="@+id/alarm_item_sat"
             android:layout_width="19dp"
             android:layout_height="20dp"
             android:layout_margin="1dp"
             android:gravity="center_horizontal"
             android:text="S"
             android:textAlignment="center"
-            android:textColor="@color/orange_2" />
-
-        <TextView
-            android:id="@+id/sun"
-            android:layout_width="19dp"
-            android:layout_height="20dp"
-            android:layout_margin="1dp"
-            android:gravity="center_horizontal"
-            android:text="S"
-            android:textAlignment="center"
-            android:textColor="@color/orange_2" />
+            android:textColor="@color/orange_1" />
 
 
     </LinearLayout>
@@ -127,9 +127,9 @@
         android:contentDescription="TODO"
         android:onClick="switchAlarm"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_alarm_off"
+        android:src="@drawable/ic_alarm_on"
 
-        android:tint="@color/orange_1"
+        android:tint="@color/orange_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -148,7 +148,7 @@
         android:paddingBottom="5dp"
         android:text="Alarm Label"
 
-        android:textColor="@color/orange_1"
+        android:textColor="@color/orange_2"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/alarmTime"
         app:layout_constraintEnd_toEndOf="parent"

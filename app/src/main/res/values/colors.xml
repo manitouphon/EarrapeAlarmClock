@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_1">#FF5D2B</color>
-    <color name="orange_2">#FFA68B</color>
-    <color name="orange_3">#A52202</color>
-    <color name="cyan_200">#81D4FA</color>
-    <color name="cyan_700">#0277BD</color>
+    <color name="orange_1">#FFA68B</color>
+    <color name="orange_2">#FF5D2B</color>
+    <color name="orange_3">#97270C</color>
+    <color name="cyan_1">#BDDDEC</color>
+    <color name="cyan_2">#002840</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue_600">#FF039BE5</color>

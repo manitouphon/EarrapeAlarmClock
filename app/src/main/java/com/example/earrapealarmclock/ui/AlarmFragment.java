@@ -1,24 +1,32 @@
 package com.example.earrapealarmclock.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.earrapealarmclock.MainActivity;
 import com.example.earrapealarmclock.R;
 
-import com.example.earrapealarmclock.Util.AlarmAdapter;
-import com.example.earrapealarmclock.Util.AlarmData;
+import com.example.earrapealarmclock.adapters.AlarmItemAdapter;
+import com.example.earrapealarmclock.util.AlarmData;
+import com.example.earrapealarmclock.util.GlobalAlarmData;
+import com.google.gson.Gson;
+
+import java.util.Vector;
 
 public class AlarmFragment extends Fragment {
 
-    private AlarmData[] alarmData = new AlarmData[10];
+    private Vector<AlarmData> alarmData;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -31,39 +39,16 @@ public class AlarmFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        for(int i = 0; i < 10; i++){
-            alarmData[i] = new AlarmData();
-        }
-
-        alarmData[0].setActive(true);
-        alarmData[0].setLabel("Join ACE class");
-        alarmData[0].setHour(3);
-        alarmData[0].setMinute(15);
-        alarmData[0].setPm(true);
-
-        alarmData[0].setMon(true);
-        alarmData[0].setWed(true);
-        alarmData[0].setFri(true);
-
-        alarmData[0].setActive(true);
+        alarmData = ((MainActivity)getActivity()).getGlobalAlarmData().getAlarmData();
 
 
-        alarmData[1].setActive(true);
-        alarmData[1].setLabel("Super early wake");
-        alarmData[1].setHour(4);
-        alarmData[1].setMinute(30);
 
-        alarmData[1].setMon(true);
-        alarmData[1].setSat(true);
-        alarmData[1].setSun(true);
-
-        alarmData[1].setActive(true);
-
-
-        AlarmAdapter alarmAdapter = new AlarmAdapter(alarmData, recyclerView);
-        recyclerView.setAdapter(alarmAdapter);
+        AlarmItemAdapter alarmItemAdapter = new AlarmItemAdapter(alarmData, recyclerView);
+        recyclerView.setAdapter(alarmItemAdapter);
 
 
         return root;
     }
+
+
 }
