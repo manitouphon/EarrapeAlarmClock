@@ -1,14 +1,11 @@
-package com.example.earrapealarmclock.ui;
+package com.example.earrapealarmclock.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +15,6 @@ import com.example.earrapealarmclock.R;
 
 import com.example.earrapealarmclock.adapters.AlarmItemAdapter;
 import com.example.earrapealarmclock.util.AlarmData;
-import com.example.earrapealarmclock.util.GlobalAlarmData;
-import com.google.gson.Gson;
 
 import java.util.Vector;
 

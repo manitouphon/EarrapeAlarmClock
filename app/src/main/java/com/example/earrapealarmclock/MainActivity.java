@@ -2,49 +2,86 @@ package com.example.earrapealarmclock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
+import com.example.earrapealarmclock.fragments.AlarmFragment;
+import com.example.earrapealarmclock.fragments.SettingsFragment;
+import com.example.earrapealarmclock.fragments.TimerFragment;
 import com.example.earrapealarmclock.util.GlobalAlarmData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-    private GlobalAlarmData globalAlarmData;
+    private GlobalAlarmData globalAlarmData ;
+    private AlarmFragment alarmFragment;
+    private SettingsFragment settingsFragment;
+    private TimerFragment timerFragment;
+    private BottomNavigationView bottomNavView;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private int selectedBottomNavID;
+
+    private void createFragment(){
+        alarmFragment = new AlarmFragment();
+        settingsFragment = new SettingsFragment();
+        timerFragment = new TimerFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        bottomNavView = findViewById(R.id.bottom_nav);
+        fragmentTransaction.replace(R.id.main_fragment_container,alarmFragment);
+        selectedBottomNavID = 0;
+        fragmentTransaction.commit();
+        bottomNavView.setOnNavigationItemSelectedListener(this);
+    }
+
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(item.getItemId() == R.id.menu_item_alarm){
+            fragmentTransaction.replace(R.id.main_fragment_container,alarmFragment);
+            selectedBottomNavID = 0;
+            fragmentTransaction.commit();
+        }
+        else if(item.getItemId() == R.id.menu_item_timer) {
+            fragmentTransaction.replace(R.id.main_fragment_container, timerFragment);
+            selectedBottomNavID = 1;
+            fragmentTransaction.commit();
+        }
+        else if(item.getItemId() == R.id.menu_item_setting){
+            fragmentTransaction.replace(R.id.main_fragment_container,settingsFragment);
+            selectedBottomNavID = 2;
+            fragmentTransaction.commit();
+        }
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         //Set main activity layout as content view
         setContentView(R.layout.activity_main);
 
-        //Create a var for storing reference to nav_view in activity_main
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-
-        //Create a config for the bottom nav
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_alarm, R.id.navigation_timer, R.id.navigation_settings)
-                .build();
-
-
-        //Create NavController that is in the NavHostFragment view
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //set up the action bar config
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //Set up the bottom NavView to work wit navController
-        NavigationUI.setupWithNavController(navView, navController);NavigationUI.setupWithNavController(navView, navController);
-
-
         //GlobalVariable::Application
         globalAlarmData = (GlobalAlarmData) getApplicationContext();
+
+        createFragment();
+
 
 
 
@@ -54,7 +91,11 @@ public class MainActivity extends AppCompatActivity {
         Intent alarmActivity = new Intent(getApplicationContext(), AlarmItemConfigActivity.class);
 //        startActivity(alarmActivity);
 
+        finish();
+        startActivity(getIntent());
+
     }
+
 
 
 
@@ -75,11 +116,17 @@ public class MainActivity extends AppCompatActivity {
         return globalAlarmData;
     }
 
-
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
+    protected void onResume() {
+        super.onResume();
+        alarmFragment = new AlarmFragment();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        if(selectedBottomNavID == 0)
+            fragmentTransaction.replace(R.id.main_fragment_container, alarmFragment);
+        else if(selectedBottomNavID == 1)
+            fragmentTransaction.replace(R.id.main_fragment_container, timerFragment);
+        else if(selectedBottomNavID == 2)
+            fragmentTransaction.replace(R.id.main_fragment_container, settingsFragment);
+        fragmentTransaction.commit();
     }
 }

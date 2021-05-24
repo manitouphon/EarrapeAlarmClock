@@ -1,27 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TimePicker
-        android:id="@+id/time_picker"
+    <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        android:amPmTextColor="@color/orange_2"
-        android:numbersBackgroundColor="@color/orange_2"
-        android:descendantFocusability="blocksDescendants"
-        />
 
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TimePicker
+            android:id="@+id/time_picker"
+            style="@style/myTimePickerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numbersBackgroundColor="@color/orange_2"
+            android:paddingVertical="16dp"
+            android:timePickerMode="clock" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Label_text_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:hint="Label" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/alarm_config_toggle_btn_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingVertical="8dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_config_sun"
@@ -51,6 +76,7 @@
                 android:text="T">
 
             </com.google.android.material.button.MaterialButton>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_config_wed"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -59,6 +85,7 @@
                 android:text="W">
 
             </com.google.android.material.button.MaterialButton>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_config_thu"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -67,6 +94,7 @@
                 android:text="T">
 
             </com.google.android.material.button.MaterialButton>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_config_fri"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -75,6 +103,7 @@
                 android:text="F">
 
             </com.google.android.material.button.MaterialButton>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_config_sat"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -84,6 +113,41 @@
 
             </com.google.android.material.button.MaterialButton>
         </com.google.android.material.button.MaterialButtonToggleGroup>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/discard_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discard"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

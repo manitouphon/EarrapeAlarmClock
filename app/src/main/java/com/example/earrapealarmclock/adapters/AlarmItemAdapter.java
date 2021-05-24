@@ -46,6 +46,14 @@ public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> 
         }
     };
 
+    private void toggleAlarm(ImageButton targetImgBtn, int adapterPosition){
+        if (alarmData.get(adapterPosition).isActive()) {
+            targetImgBtn.setImageResource(R.drawable.ic_alarm_on);
+        } else {
+            targetImgBtn.setImageResource(R.drawable.ic_alarm_off);
+        }
+    }
+
 
 
 
@@ -89,10 +97,10 @@ public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> 
 
         //Set Time
         TextView time = holder.itemView.findViewById(R.id.alarmTime);
-        String hour = String.valueOf(alarmData.get(position).getHour());
+        String hour = String.valueOf(alarmData.get(position).get12HHour());
         String minute = String.valueOf(alarmData.get(position).getMinute());
         String period;
-        if (alarmData.get(position).getHour() < 10) {
+        if (alarmData.get(position).get12HHour() < 10) {
             hour = "0" + hour;
         }
         if (alarmData.get(position).getMinute() < 10) {
@@ -147,24 +155,17 @@ public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> 
         //Set alarm on/off state:
         ImageButton alarmSwitchingImgBtn = holder.itemView.findViewById(R.id.alarmSwitchingImageButton);
         //Init
-        if (alarmData.get(position).isActive()) {
-            alarmSwitchingImgBtn.setImageResource(R.drawable.ic_alarm_on);
-        } else {
-            alarmSwitchingImgBtn.setImageResource(R.drawable.ic_alarm_off);
-        }
+        toggleAlarm(alarmSwitchingImgBtn,position);
         alarmSwitchingImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toggle the Active::Boolean status
                 alarmData.get(position).setActive(!alarmData.get(position).isActive());
                 //Re-init
-                if (alarmData.get(position).isActive()) {
-                    alarmSwitchingImgBtn.setImageResource(R.drawable.ic_alarm_on);
-                } else {
-                    alarmSwitchingImgBtn.setImageResource(R.drawable.ic_alarm_off);
-                }
+                toggleAlarm(alarmSwitchingImgBtn,position);
             }
         });
+
 
 
 

@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.AlarmFragment"
+
     >
+<!--    tools:context=".fragments.AlarmFragment"-->
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
         android:contentDescription="Add alarm"
         android:onClick="addAlarm"

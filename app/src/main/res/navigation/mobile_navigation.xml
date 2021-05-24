@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_alarm"
+    app:startDestination="@+id/menu_item_alarm"
 
     >
 
     <fragment
-        android:id="@+id/navigation_alarm"
-        android:name="com.example.earrapealarmclock.ui.AlarmFragment"
+        android:id="@+id/menu_item_alarm"
+        android:name="com.example.earrapealarmclock.fragments.AlarmFragment"
         android:label="@string/title_alarm"
         tools:layout="@layout/fragment_alarm" />
 
     <fragment
-        android:id="@+id/navigation_timer"
-        android:name="com.example.earrapealarmclock.ui.TimerFragment"
+        android:id="@+id/menu_item_timer"
+        android:name="com.example.earrapealarmclock.fragments.TimerFragment"
         android:label="@string/title_timer"
         tools:layout="@layout/fragment_timer" />
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.example.earrapealarmclock.ui.SettingsFragment"
+        android:id="@+id/menu_item_setting"
+        android:name="com.example.earrapealarmclock.fragments.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

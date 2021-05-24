@@ -75,12 +75,21 @@ public class AlarmData implements PropertyChangeListener {
         else return false;
     }
 
+    public int get24HHour(){
+        return hour;
+    }
 
 
-    public int getHour() {
-        if(isPm())
-        return hour - 12;
-        else return hour;
+    public int get12HHour() {
+        if(isPm()){
+            if(hour == 12) return 12;
+            else return hour - 12;
+        }
+        else if(!isPm()){
+            if(hour == 0) return 12;
+            else return hour;
+        }
+        return -1;
     }
 
     public String DEBUG_getInfo( ){

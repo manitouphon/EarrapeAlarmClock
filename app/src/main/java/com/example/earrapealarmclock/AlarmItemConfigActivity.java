@@ -1,28 +1,28 @@
 package com.example.earrapealarmclock;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.earrapealarmclock.util.AlarmData;
 import com.example.earrapealarmclock.util.GlobalAlarmData;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
 
 public class AlarmItemConfigActivity extends AppCompatActivity {
 
@@ -30,10 +30,30 @@ public class AlarmItemConfigActivity extends AppCompatActivity {
     private int dataIndex;
     private TimePicker timePicker;
     private MaterialButtonToggleGroup buttonToggleGroup;
-    private boolean needToSave = true;
+    private boolean needToSave = false;
+    private boolean dialogSayYes ;
     private GlobalAlarmData globalAlarmData;
+    private TextInputEditText labelTextEdit;
+    private MaterialButton saveButton, discardButton;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void showDiscardAlertDialog(){
+        AlertDialog.Builder confirmAlertDialog = new AlertDialog.Builder(this);
+        confirmAlertDialog.setTitle("Discard Changes");
+        confirmAlertDialog.setMessage("Do you want to discard these changes?");
+        confirmAlertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                needToSave = false;
+                dialogSayYes = true;
+                AlarmItemConfigActivity.super.onBackPressed();
+                finish();
+            }
+        });
+        confirmAlertDialog.setNegativeButton(android.R.string.no, null);
+        confirmAlertDialog.setIcon(android.R.drawable.ic_menu_save);
+        AlertDialog alertDialog = confirmAlertDialog.create();
+        alertDialog.show();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +62,12 @@ public class AlarmItemConfigActivity extends AppCompatActivity {
         }
         //Set Alarm Item Config Layout as Content View
         setContentView(R.layout.activity_alarm_item_config);
+
+        //private variables init.
         timePicker = findViewById(R.id.time_picker);
         buttonToggleGroup = findViewById(R.id.alarm_config_toggle_btn_group);
+        discardButton = findViewById(R.id.discard_button);
+        saveButton = findViewById(R.id.save_button);
 
         currentAlarmData = new AlarmData();//Null safe!
         globalAlarmData = globalAlarmData = (GlobalAlarmData) getApplicationContext();
@@ -58,35 +82,53 @@ public class AlarmItemConfigActivity extends AppCompatActivity {
         Log.d("gson", String.valueOf(dataIndex) + currentAlarmData.DEBUG_getInfo());
 
 
+        //-------------------------Init section
+
         //Initialize TimePicker Config:
-        timePicker.setHour(currentAlarmData.getHour());
-        timePicker.setMinute(currentAlarmData.getMinute());
-        //set timePicker work around
-        Date date = new Date();
-        date.setHours(currentAlarmData.getHour());
-        date.setMinutes(currentAlarmData.getMinute());
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        timePicker.setCurrentHour(cal.HOUR_OF_DAY);
+        timePicker.setCurrentHour(currentAlarmData.get24HHour());
+        timePicker.setCurrentMinute(currentAlarmData.getMinute());
+
 
 
         //Initialize days of weeks:
-        if (currentAlarmData.isSun())
+        if (currentAlarmData.isSun()) {
             buttonToggleGroup.check(R.id.alarm_config_sun);
-        if (currentAlarmData.isMon())
+        }
+        if (currentAlarmData.isMon()) {
             buttonToggleGroup.check(R.id.alarm_config_mon);
-        if (currentAlarmData.isTue())
+        }
+        if (currentAlarmData.isTue()) {
             buttonToggleGroup.check(R.id.alarm_config_tue);
-        if (currentAlarmData.isWed())
+        }
+        if (currentAlarmData.isWed()) {
             buttonToggleGroup.check(R.id.alarm_config_wed);
-        if (currentAlarmData.isThu())
+        }
+        if (currentAlarmData.isThu()) {
             buttonToggleGroup.check(R.id.alarm_config_thu);
-        if (currentAlarmData.isFri())
+        }
+        if (currentAlarmData.isFri()) {
             buttonToggleGroup.check(R.id.alarm_config_fri);
-        if (currentAlarmData.isSat())
+        }
+        if (currentAlarmData.isSat()) {
             buttonToggleGroup.check(R.id.alarm_config_sat);
+        }
 
 
+
+        //-------------------Actions Section:
+
+
+
+
+        //Set timepicker action:
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                currentAlarmData.setHour(hourOfDay);
+                currentAlarmData.setMinute(minute);
+                needToSave = true;
+            }
+        });
         //Set Days of weeks
         buttonToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
             @Override
@@ -120,20 +162,57 @@ public class AlarmItemConfigActivity extends AppCompatActivity {
 
                         break;
                 }
+                needToSave = true;
                 Log.d("gson", currentAlarmData.DEBUG_getInfo());
 
 
             }
         });
 
+
+        //Initialize Label:
+        labelTextEdit = findViewById(R.id.Label_text_edit);
+        labelTextEdit.setText(currentAlarmData.getLabel());
+
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                needToSave = true;
+                finish();
+                Log.d("button", "onClick: save ");
+            }
+        });
+        discardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                needToSave = false;
+                showDiscardAlertDialog();
+                Log.d("button", "onClick: discard");
+            }
+        });
+
+
+
+    }//On Create
+
+    @Override
+    public void onBackPressed() {
+        showDiscardAlertDialog();
+
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+
+        super.onPause();
         if (needToSave){
+            Log.d("button", "onStop: data saved" + currentAlarmData.getLabel());
+            currentAlarmData.setLabel(labelTextEdit.getText().toString());
             globalAlarmData.setAlarmData(dataIndex,currentAlarmData);
         }
+        finish();
 
 
 
