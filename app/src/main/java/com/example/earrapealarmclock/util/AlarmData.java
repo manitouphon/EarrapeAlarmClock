@@ -112,7 +112,8 @@ public class AlarmData implements PropertyChangeListener {
 
 
 
-        String msg = "Hour: " + this.hour +"\nMinute: " + this.minute + "\nDays: " + daysBin + "\nisActive: " + isActive;
+        String msg = "Hour: " + this.hour +"\nMinute: " + this.minute + "\nDays: " + daysBin + "\nisActive: " + isActive
+                + "\nLabel:" + label;
         return msg;
     }
 

@@ -123,7 +123,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingBottom="16px">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/discard_button"

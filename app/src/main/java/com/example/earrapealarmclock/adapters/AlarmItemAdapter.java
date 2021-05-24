@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.earrapealarmclock.AlarmItemConfigActivity;
 import com.example.earrapealarmclock.util.GlobalAlarmData;
+import com.example.earrapealarmclock.util.NetworkUtil;
 import com.example.earrapealarmclock.viewHolders.AlarmItemViewHolder;
 import com.example.earrapealarmclock.R;
 import com.example.earrapealarmclock.util.AlarmData;
@@ -25,7 +26,6 @@ import java.util.Vector;
 public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> {
     private RecyclerView mainRecyclerView;
     private Vector<AlarmData> alarmData;
-
 
     //OnClick Handler for each view holders
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -46,7 +46,7 @@ public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> 
         }
     };
 
-    private void toggleAlarm(ImageButton targetImgBtn, int adapterPosition){
+    private void updateAlarmIconState(ImageButton targetImgBtn, int adapterPosition){
         if (alarmData.get(adapterPosition).isActive()) {
             targetImgBtn.setImageResource(R.drawable.ic_alarm_on);
         } else {
@@ -155,14 +155,15 @@ public class AlarmItemAdapter extends RecyclerView.Adapter<AlarmItemViewHolder> 
         //Set alarm on/off state:
         ImageButton alarmSwitchingImgBtn = holder.itemView.findViewById(R.id.alarmSwitchingImageButton);
         //Init
-        toggleAlarm(alarmSwitchingImgBtn,position);
+        updateAlarmIconState(alarmSwitchingImgBtn,position);
         alarmSwitchingImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toggle the Active::Boolean status
                 alarmData.get(position).setActive(!alarmData.get(position).isActive());
                 //Re-init
-                toggleAlarm(alarmSwitchingImgBtn,position);
+                updateAlarmIconState(alarmSwitchingImgBtn,position);
+                NetworkUtil.updateAlarmData(alarmData.get(position),position,mainRecyclerView.getContext());
             }
         });
 

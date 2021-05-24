@@ -13,6 +13,7 @@ import com.example.earrapealarmclock.fragments.AlarmFragment;
 import com.example.earrapealarmclock.fragments.SettingsFragment;
 import com.example.earrapealarmclock.fragments.TimerFragment;
 import com.example.earrapealarmclock.util.GlobalAlarmData;
+import com.example.earrapealarmclock.util.NetworkUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private int selectedBottomNavID;
+
+
 
     private void createFragment(){
         alarmFragment = new AlarmFragment();
@@ -73,17 +76,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        NetworkUtil.fetchAllAlarmData(getApplicationContext());
         super.onCreate(savedInstanceState);
         //Set main activity layout as content view
         setContentView(R.layout.activity_main);
 
         //GlobalVariable::Application
+
         globalAlarmData = (GlobalAlarmData) getApplicationContext();
-
+        Log.d("nnuxx", "onCreate: " +globalAlarmData.getAlarmData());
         createFragment();
-
-
-
+        onResume();
 
     }
 
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onResume() {
+        NetworkUtil.fetchAllAlarmData(getApplicationContext());
+        globalAlarmData = (GlobalAlarmData) getApplicationContext();
         super.onResume();
         alarmFragment = new AlarmFragment();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -128,5 +133,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         else if(selectedBottomNavID == 2)
             fragmentTransaction.replace(R.id.main_fragment_container, settingsFragment);
         fragmentTransaction.commit();
+
+
     }
 }
