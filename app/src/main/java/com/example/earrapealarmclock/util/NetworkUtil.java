@@ -50,6 +50,9 @@ public class NetworkUtil {
         Volley.newRequestQueue(context).add(request);
 
     }
+
+
+
     public static void fetchAllAlarmData(Context context){
         GlobalAlarmData globalAlarmData = (GlobalAlarmData) context.getApplicationContext();
 
@@ -88,6 +91,9 @@ public class NetworkUtil {
         Volley.newRequestQueue(context).add(arrayRequest);
 
     }
+
+
+
 
     public static void updateAlarmData(AlarmData newData,int index, Context context){
         index++;
